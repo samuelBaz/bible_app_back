@@ -3,6 +3,12 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
+import { BookService } from './services/libro.service';
+import { BookRepository } from './repositories/libro.repository';
+import { BooksController } from './controller/libro.controller';
+import { BibleController } from './controller/biblia.controller';
+import { BibleRepository } from './repositories/biblia.repository';
+import { BibleService } from './services/biblia.service';
 
 @Module({
   imports: [
@@ -17,13 +23,16 @@ import { ConfigModule } from '@nestjs/config';
       password: process.env.DB_PASSWORD,
       database: process.env.DB_DATABASE,
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
-      synchronize: true,
-      retryAttempts: 3, // Añadir esto para intentos de reconexión
-      retryDelay: 3000, // Añadir esto para el retraso entre intentos
-      logging: true, // Activa el logging para obtener más detalles
+      synchronize: false,
     }),
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController, BooksController, BibleController],
+  providers: [
+    AppService,
+    BookService,
+    BookRepository,
+    BibleRepository,
+    BibleService,
+  ],
 })
 export class AppModule {}
