@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { Bible } from './biblia.entity';
 
 @Entity({ name: 'bible_rv60_books' }) // Nombre de la tabla en la base de datos
 export class Book {
@@ -13,4 +14,7 @@ export class Book {
 
   @Column()
   testament: string;
+
+  @OneToMany(() => Bible, (bible) => bible.bookEntity)
+  bibles: Bible[];
 }

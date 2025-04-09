@@ -1,6 +1,4 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { BookService } from './services/libro.service';
@@ -26,13 +24,7 @@ import { BibleService } from './services/biblia.service';
       synchronize: false,
     }),
   ],
-  controllers: [AppController, BooksController, BibleController],
-  providers: [
-    AppService,
-    BookService,
-    BookRepository,
-    BibleRepository,
-    BibleService,
-  ],
+  controllers: [BooksController, BibleController],
+  providers: [BookService, BookRepository, BibleRepository, BibleService],
 })
 export class AppModule {}
