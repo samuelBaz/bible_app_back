@@ -1,7 +1,13 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  JoinColumn,
+} from 'typeorm';
 import { Cancion } from './cancion.entity';
 
-@Entity({ name: 'estrofas' })
+@Entity()
 export class Estrofa {
   @PrimaryGeneratedColumn()
   id: number;
@@ -9,9 +15,13 @@ export class Estrofa {
   @Column()
   numero: number;
 
-  @Column({ type: 'text' })
+  @Column('text')
   texto: string;
 
+  @Column({ default: false })
+  es_coro: boolean;
+
   @ManyToOne(() => Cancion, (cancion) => cancion.estrofas)
+  @JoinColumn({ name: 'cancion_id' })
   cancion: Cancion;
 }

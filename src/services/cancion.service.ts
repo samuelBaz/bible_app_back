@@ -9,6 +9,40 @@ export class CancionService {
     private cancionRepository: CancionRepository,
   ) {}
 
+  private parseQuery(query: string) {
+    // Ejemplo de entrada: "VERDE-1"
+    const [himnario, numero] = query.split('-');
+
+    if (!himnario || !numero) {
+      throw new Error('Formato de query inválido. Debe ser HIMNARIO-NUMERO');
+    }
+
+    const numeroCancion = Number(numero);
+    if (isNaN(numeroCancion)) {
+      throw new Error('El número de canción debe ser un valor numérico');
+    }
+
+    return {
+      himnario,
+      numero: numeroCancion,
+    };
+  }
+
+  async getByQuery(query: string): Promise<Cancion> {
+    const { himnario, numero } = this.parseQuery(query);
+    console.log('Buscando canción:', { himnario, numero });
+
+    const cancion = await this.cancionRepository.findByHimnarioAndNumber(
+      himnario,
+      numero,
+    );
+    if (!cancion) {
+      throw new Error('Canción no encontrada');
+    }
+
+    return cancion;
+  }
+
   async getAll(): Promise<Cancion[]> {
     return this.cancionRepository.getAll();
   }

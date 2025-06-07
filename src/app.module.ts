@@ -7,6 +7,9 @@ import { BooksController } from './controller/libro.controller';
 import { BibleController } from './controller/biblia.controller';
 import { BibleRepository } from './repositories/biblia.repository';
 import { BibleService } from './services/biblia.service';
+import { CancionController } from './controller/cancion.controller';
+import { CancionRepository } from './repositories/cancion.repository';
+import { CancionService } from './services/cancion.service';
 
 @Module({
   imports: [
@@ -24,7 +27,14 @@ import { BibleService } from './services/biblia.service';
       synchronize: false,
     }),
   ],
-  controllers: [BooksController, BibleController],
-  providers: [BookService, BookRepository, BibleRepository, BibleService],
+  controllers: [BooksController, BibleController, CancionController],
+  providers: [
+    BookService,
+    BookRepository,
+    BibleRepository,
+    BibleService,
+    CancionRepository,
+    CancionService,
+  ],
 })
 export class AppModule {}

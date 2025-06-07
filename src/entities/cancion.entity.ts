@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { Estrofa } from './estrofa.entity';
 
 @Entity({ name: 'canciones' })
@@ -14,9 +14,6 @@ export class Cancion {
 
   @Column()
   himnario: string;
-
-  @Column({ type: 'text', nullable: true })
-  coro: string;
 
   @OneToMany(() => Estrofa, (estrofa) => estrofa.cancion)
   estrofas: Estrofa[];

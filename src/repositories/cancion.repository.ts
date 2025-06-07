@@ -19,6 +19,19 @@ export class CancionRepository {
     });
   }
 
+  async findByHimnarioAndNumber(
+    himnario: string,
+    numero: number,
+  ): Promise<Cancion> {
+    return this.dataSource.getRepository(Cancion).findOne({
+      where: {
+        himnario,
+        numero,
+      },
+      relations: ['estrofas'],
+    });
+  }
+
   async create(cancion: Cancion): Promise<Cancion> {
     return this.dataSource.getRepository(Cancion).save(cancion);
   }

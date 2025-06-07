@@ -6,6 +6,7 @@ import {
   Delete,
   Body,
   Param,
+  Query,
 } from '@nestjs/common';
 import { CancionService } from 'src/services/cancion.service';
 import { Cancion } from 'src/entities/cancion.entity';
@@ -13,6 +14,14 @@ import { Cancion } from 'src/entities/cancion.entity';
 @Controller('canciones')
 export class CancionController {
   constructor(private readonly cancionService: CancionService) {}
+
+  @Get('query')
+  async getByQuery(@Query('query') query: string): Promise<Cancion> {
+    console.log('Buscando canción con query:', query);
+    const result = await this.cancionService.getByQuery(query);
+    console.log('Resultado de la búsqueda:', JSON.stringify(result, null, 2));
+    return result;
+  }
 
   @Get()
   async getAll(): Promise<Cancion[]> {
